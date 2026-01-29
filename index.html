@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <title>Overlook Capital</title>
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-        body, html {
+
+        html, body {
             height: 100%;
             overflow: hidden;
         }
-        
+
         body {
             display: flex;
             justify-content: center;
@@ -27,18 +27,16 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
         }
-        
-        h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            color: #3a6150ff;
-            text-align: center;
-            font-family: 'Montserrat', sans-serif;
-            letter-spacing: 2px;
-            animation: fadeIn 2s ease-in-out;
-            padding: 20px;
+
+        /* Centered logo */
+        .logo {
+            max-width: min(900px, 80vw);  /* caps size on large screens */
+            max-height: 60vh;             /* prevents vertical overflow */
+            width: auto;
+            height: auto;
+            animation: fadeIn 1.8s ease-in-out;
         }
-        
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -49,23 +47,27 @@
                 transform: translateY(0);
             }
         }
-        
+
+        /* Mobile tuning */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-                letter-spacing: 1px;
+            .logo {
+                max-width: 85vw;
+                max-height: 50vh;
             }
         }
-        
+
         @media (max-width: 480px) {
-            h1 {
-                font-size: 2rem;
-                padding: 15px;
+            .logo {
+                max-width: 90vw;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Overlook Capital</h1>
+    <img 
+        src="Logo_Green.png" 
+        alt="Overlook Capital"
+        class="logo"
+    />
 </body>
 </html>
