@@ -1,73 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Overlook Capital</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Company</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    /* Basic reset */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
 
-        html, body {
-            height: 100%;
-            overflow: hidden;
-        }
+    body {
+      background-image: url("overlook_bckg.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      position: relative;
+      font-family: sans-serif;
+    }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-image: url('overlook-background.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
+    /* Optional subtle overlay for readability (delete if not needed) */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.15);
+      pointer-events: none;
+    }
 
-        /* Centered logo */
-        .logo {
-            max-width: min(900px, 80vw);  /* caps size on large screens */
-            max-height: 60vh;             /* prevents vertical overflow */
-            width: auto;
-            height: auto;
-            animation: fadeIn 1.8s ease-in-out;
-        }
+    .wrap {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: clamp(16px, 4vw, 48px);
+      position: relative;
+    }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .logo {
+      width: min(520px, 80vw);
+      height: auto;
+      max-height: 60vh;
+      object-fit: contain;
+    }
 
-        /* Mobile tuning */
-        @media (max-width: 768px) {
-            .logo {
-                max-width: 85vw;
-                max-height: 50vh;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo {
-                max-width: 90vw;
-            }
-        }
-    </style>
+    /* Mobile fix for background scrolling */
+    @media (max-width: 768px) {
+      body { background-attachment: scroll; }
+    }
+  </style>
 </head>
+
 <body>
-    <img 
-        src="Logo_Green.png" 
-        alt="Overlook Capital"
-        class="logo"
-    />
+  <main class="wrap">
+    <img class="logo" src="Logo_White.png" alt="Company Logo" />
+  </main>
 </body>
 </html>
