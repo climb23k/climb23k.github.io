@@ -3,38 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Your Company</title>
+  <title>Overlook Capital</title>
 
   <style>
-    /* Basic reset */
-    * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #1c1c1c;
+      background: #f7f6f2;
+    }
+
+    /* =========================
+       HERO
+       ========================= */
+
+    .hero {
+      height: 100vh;
+      min-height: 600px;
+      position: relative;
+      overflow: hidden;
+
+      display: grid;
+      place-items: center;
+    }
+
+    /*
+      Background is now its own layer so we can
+      smoothly zoom it independently.
+    */
+    .hero-background {
+      position: absolute;
+
+      /*
+        Slightly oversized to prevent edges from
+        appearing while the image is zoomed.
+      */
+      inset: -5%;
+
       background-image: url("overlook_bckg.png");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      background-attachment: fixed;
-      position: relative;
-      font-family: sans-serif;
+
+      /*
+        Initial zoom level.
+        JavaScript adjusts this as you scroll.
+      */
+      transform: scale(1.20);
+
+      will-change: transform;
     }
 
-    /* Optional subtle overlay for readability (delete if not needed) */
-    body::before {
-      content: "";
-      position: fixed;
+    /* Dark overlay */
+    .hero-overlay {
+      position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.15);
+      background: rgba(0, 0, 0, 0.15);
       pointer-events: none;
-    }
-
-    .wrap {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: clamp(16px, 4vw, 48px);
-      position: relative;
+      z-index: 1;
     }
 
     .logo {
@@ -42,18 +81,438 @@
       height: auto;
       max-height: 60vh;
       object-fit: contain;
+
+      position: relative;
+      z-index: 2;
+
+      will-change: transform, opacity;
     }
 
-    /* Mobile fix for background scrolling */
-    @media (max-width: 768px) {
-      body { background-attachment: scroll; }
+
+    /* =========================
+       SCROLL CUE
+       ========================= */
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      z-index: 3;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+
+      color: rgba(255, 255, 255, 0.85);
+
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+
+      transition: opacity 0.3s ease;
     }
+
+    .scroll-line {
+      width: 1px;
+      height: 36px;
+
+      background: rgba(255, 255, 255, 0.75);
+
+      animation: scrollPulse 2s ease-in-out infinite;
+      transform-origin: top;
+    }
+
+    @keyframes scrollPulse {
+      0% {
+        transform: scaleY(0.35);
+        opacity: 0.35;
+      }
+
+      50% {
+        transform: scaleY(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scaleY(0.35);
+        opacity: 0.35;
+      }
+    }
+
+
+    /* =========================
+       THESIS
+       ========================= */
+
+    .thesis-section {
+      position: relative;
+      z-index: 4;
+
+      background: #f7f6f2;
+
+      padding: 120px 32px 140px;
+    }
+
+    .thesis-container {
+      width: min(760px, 100%);
+      margin: 0 auto;
+    }
+
+    .thesis-block {
+      margin-bottom: 100px;
+    }
+
+    .thesis-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .thesis-block h2 {
+      font-family: Georgia, "Times New Roman", serif;
+
+      font-size: clamp(34px, 4vw, 52px);
+      font-weight: 400;
+      line-height: 1.1;
+
+      margin: 0 0 42px;
+
+      letter-spacing: -0.02em;
+    }
+
+    .thesis-block p {
+      font-family: Georgia, "Times New Roman", serif;
+
+      font-size: 19px;
+      line-height: 1.75;
+
+      margin: 0 0 28px;
+
+      color: #292929;
+    }
+
+    .thesis-block p:last-child {
+      margin-bottom: 0;
+    }
+
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    @media (max-width: 768px) {
+
+      .hero {
+        min-height: 100vh;
+      }
+
+      .hero-background {
+        background-position: center;
+      }
+
+      .scroll-cue {
+        bottom: 24px;
+      }
+
+      .thesis-section {
+        padding: 80px 24px 100px;
+      }
+
+      .thesis-block {
+        margin-bottom: 80px;
+      }
+
+      .thesis-block h2 {
+        margin-bottom: 30px;
+      }
+
+      .thesis-block p {
+        font-size: 18px;
+        line-height: 1.7;
+      }
+    }
+
+
+    /*
+      Accessibility:
+      disable movement for users who have
+      reduced-motion enabled.
+    */
+    @media (prefers-reduced-motion: reduce) {
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      .hero-background {
+        transform: scale(1);
+      }
+
+      .scroll-line {
+        animation: none;
+      }
+    }
+
   </style>
 </head>
 
+
 <body>
-  <main class="wrap">
-    <img class="logo" src="Logo_White.png" alt="Company Logo" />
-  </main>
+
+  <!-- =========================
+       HERO
+       ========================= -->
+
+  <section class="hero" id="hero">
+
+    <div
+      class="hero-background"
+      id="heroBackground">
+    </div>
+
+    <div class="hero-overlay"></div>
+
+    <img
+      class="logo"
+      id="logo"
+      src="Logo_White.png"
+      alt="Overlook Capital"
+    />
+
+    <div
+      class="scroll-cue"
+      id="scrollCue"
+      aria-hidden="true">
+
+      <span>Scroll to explore</span>
+
+      <div class="scroll-line"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       THESIS
+       ========================= -->
+
+  <section class="thesis-section">
+
+    <div class="thesis-container">
+
+      <!-- TODAY -->
+
+      <div class="thesis-block">
+
+        <h2>Our Thesis Today</h2>
+
+        <p>
+          We are a capacity constrained growth fund. We chose to focus on small
+          growth checks because this enables us to take advantage of opportunities
+          that large funds ignore.
+        </p>
+
+        <p>
+          We can invest into opportunities when the allocation size into
+          “consensus” deals is too small for big funds, or the deal is perceived
+          as “too safe”. These opportunities exist because big funds have become
+          roughly 10x bigger in absolute terms over the last decade. A $10mm
+          check that turns into a $100mm outcome doesn’t move the needle for
+          them, but it does for us.
+        </p>
+
+        <p>
+          These platforms make exceptional partners, and will continue to have
+          success with their strategy. And we will make exceptional partners to
+          them, as well as to founders. Every founder has a story about the most
+          helpful investors on their cap table, and they tend to be loosely
+          correlated with check size.
+        </p>
+
+        <p>
+          There is a myth in silicon valley that the best way to select power-law
+          companies is to try to pick power-law companies which steers smart
+          people away from “safe” bets. Every 100x investment at some point had
+          to 3-5x, and thus we aim to deeply understand the first principles that
+          lead to the next major inflection points of the company. We never
+          invest in companies where we think the upside is capped after that
+          5 year exercise; we just think this is the best way to understand a
+          business while avoiding a whole lot of navel gazing.
+        </p>
+
+        <p>
+          We will register the firm with the SEC. We want to be able to access
+          great businesses at fair prices, and not be hamstrung by an arbitrary
+          regulatory rule written 100 years ago. It is not our job to be the
+          saviors or stalwarts of an old funding paradigm. Our job is to invest
+          in the best companies we can, regardless of structure.
+        </p>
+
+      </div>
+
+
+      <!-- EVERGREEN -->
+
+      <div class="thesis-block">
+
+        <h2>Our Evergreen Thesis</h2>
+
+        <p>
+          Industries come in and out of favor. Interest rates (and fund sizes)
+          rise and fall. There are few evergreen pastures in Venture Land, and
+          we will structure our fund to pursue those ruthlessly.
+        </p>
+
+        <p>
+          Founder talent will remain the scarcest resource. There will always be
+          monumental companies started by the technological conquerors of the
+          era. The areas these people focus on will continue to shift as
+          technology accelerates, and accordingly the way in which they are
+          funded will change. We will change with them.
+        </p>
+
+        <p>
+          The funds we admire most have succeeded because they are built in ways
+          where decision makers have enormous autonomy and accountability. They
+          don’t outsource their thinking, and they can move ridiculously fast.
+        </p>
+
+        <p>
+          The easiest way to assure we do this is to keep our team small. A small
+          team also enables us to provide borderline-uncomfortable levels of
+          transparency to founders because almost every conversation they have
+          will be with a decision maker. We will occasionally hire apprentices,
+          but this is mostly to give back to the ecosystem. We were once junior
+          investors at VC firms where someone took a bet on us, and we hope to
+          do the same.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       SCROLL EFFECT
+       ========================= -->
+
+  <script>
+
+    const hero = document.getElementById("hero");
+    const background = document.getElementById("heroBackground");
+    const logo = document.getElementById("logo");
+    const scrollCue = document.getElementById("scrollCue");
+
+    const prefersReducedMotion =
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+
+    function updateHero() {
+
+      if (prefersReducedMotion) return;
+
+      const heroHeight = hero.offsetHeight;
+
+      /*
+        How far through the hero have we scrolled?
+
+        0 = top of page
+        1 = entire hero has passed
+      */
+
+      const progress = Math.min(
+        Math.max(window.scrollY / heroHeight, 0),
+        1
+      );
+
+
+      /*
+        BACKGROUND ZOOM
+
+        Starts at 1.20x
+        Ends at 1.00x
+      */
+
+      const startScale = 1.20;
+      const endScale = 1.00;
+
+      const scale =
+        startScale -
+        ((startScale - endScale) * progress);
+
+      background.style.transform =
+        `scale(${scale})`;
+
+
+      /*
+        Give the logo a tiny amount of parallax
+        and fade as the user approaches the thesis.
+      */
+
+      const logoMove = progress * -35;
+
+      const logoOpacity =
+        Math.max(1 - (progress * 1.35), 0);
+
+      logo.style.transform =
+        `translateY(${logoMove}px)`;
+
+      logo.style.opacity =
+        logoOpacity;
+
+
+      /*
+        Scroll cue disappears quickly once
+        scrolling begins.
+      */
+
+      const cueOpacity =
+        Math.max(1 - (progress * 6), 0);
+
+      scrollCue.style.opacity =
+        cueOpacity;
+    }
+
+
+    /*
+      requestAnimationFrame keeps scrolling smooth.
+    */
+
+    let ticking = false;
+
+    window.addEventListener(
+      "scroll",
+      function () {
+
+        if (!ticking) {
+
+          window.requestAnimationFrame(
+            function () {
+
+              updateHero();
+
+              ticking = false;
+
+            }
+          );
+
+          ticking = true;
+
+        }
+
+      },
+      { passive: true }
+    );
+
+
+    updateHero();
+
+  </script>
+
 </body>
 </html>
