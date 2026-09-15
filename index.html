@@ -21,7 +21,6 @@
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
       color: #1c1c1c;
       background: #f7f6f2;
     }
@@ -40,17 +39,8 @@
       place-items: center;
     }
 
-    /*
-      Background is now its own layer so we can
-      smoothly zoom it independently.
-    */
     .hero-background {
       position: absolute;
-
-      /*
-        Slightly oversized to prevent edges from
-        appearing while the image is zoomed.
-      */
       inset: -5%;
 
       background-image: url("overlook_bckg.png");
@@ -58,16 +48,10 @@
       background-position: center;
       background-repeat: no-repeat;
 
-      /*
-        Initial zoom level.
-        JavaScript adjusts this as you scroll.
-      */
       transform: scale(1.20);
-
       will-change: transform;
     }
 
-    /* Dark overlay */
     .hero-overlay {
       position: absolute;
       inset: 0;
@@ -87,7 +71,6 @@
 
       will-change: transform, opacity;
     }
-
 
     /* =========================
        SCROLL CUE
@@ -143,7 +126,6 @@
       }
     }
 
-
     /* =========================
        THESIS
        ========================= */
@@ -153,7 +135,6 @@
       z-index: 4;
 
       background: #f7f6f2;
-
       padding: 120px 32px 140px;
     }
 
@@ -172,7 +153,6 @@
 
     .thesis-block h2 {
       font-family: Georgia, "Times New Roman", serif;
-
       font-size: clamp(34px, 4vw, 52px);
       font-weight: 400;
       line-height: 1.1;
@@ -184,12 +164,10 @@
 
     .thesis-block p {
       font-family: Georgia, "Times New Roman", serif;
-
       font-size: 19px;
       line-height: 1.75;
 
       margin: 0 0 28px;
-
       color: #292929;
     }
 
@@ -197,6 +175,112 @@
       margin-bottom: 0;
     }
 
+    /* =========================
+       FOOTER
+       ========================= */
+
+    .footer {
+      height: 100vh;
+      min-height: 600px;
+
+      position: relative;
+      overflow: hidden;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: white;
+    }
+
+    .footer-background {
+      position: absolute;
+      inset: -5%;
+
+      background-image: url("overlook_bckg.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      transform: scale(1.20);
+      will-change: transform;
+    }
+
+    .footer-overlay {
+      position: absolute;
+      inset: 0;
+
+      background: rgba(0, 0, 0, 0.25);
+
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .footer-content {
+      position: relative;
+      z-index: 2;
+
+      width: min(1100px, calc(100% - 64px));
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      text-align: center;
+    }
+
+    .footer-logo {
+      width: min(420px, 70vw);
+      height: auto;
+
+      margin-bottom: 48px;
+    }
+
+    .portal-link {
+      display: inline-block;
+
+      color: white;
+      text-decoration: none;
+
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+
+      border: 1px solid rgba(255, 255, 255, 0.65);
+      padding: 16px 26px;
+
+      transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+    }
+
+    .portal-link:hover {
+      background: white;
+      color: #1c1c1c;
+      border-color: white;
+    }
+
+    .footer-bottom {
+      position: absolute;
+
+      left: 0;
+      right: 0;
+      bottom: 32px;
+
+      display: flex;
+      justify-content: center;
+
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+
+      color: rgba(255, 255, 255, 0.75);
+    }
 
     /* =========================
        MOBILE
@@ -204,11 +288,13 @@
 
     @media (max-width: 768px) {
 
-      .hero {
+      .hero,
+      .footer {
         min-height: 100vh;
       }
 
-      .hero-background {
+      .hero-background,
+      .footer-background {
         background-position: center;
       }
 
@@ -232,21 +318,28 @@
         font-size: 18px;
         line-height: 1.7;
       }
+
+      .footer-content {
+        width: calc(100% - 48px);
+      }
+
+      .footer-bottom {
+        bottom: 24px;
+      }
     }
 
+    /* =========================
+       REDUCED MOTION
+       ========================= */
 
-    /*
-      Accessibility:
-      disable movement for users who have
-      reduced-motion enabled.
-    */
     @media (prefers-reduced-motion: reduce) {
 
       html {
         scroll-behavior: auto;
       }
 
-      .hero-background {
+      .hero-background,
+      .footer-background {
         transform: scale(1);
       }
 
@@ -254,10 +347,8 @@
         animation: none;
       }
     }
-
   </style>
 </head>
-
 
 <body>
 
@@ -286,8 +377,7 @@
       id="scrollCue"
       aria-hidden="true">
 
-      <span>Scroll to explore</span>
-
+      <span>Our Thesis</span>
       <div class="scroll-line"></div>
 
     </div>
@@ -302,8 +392,6 @@
   <section class="thesis-section">
 
     <div class="thesis-container">
-
-      <!-- TODAY -->
 
       <div class="thesis-block">
 
@@ -354,8 +442,6 @@
       </div>
 
 
-      <!-- EVERGREEN -->
-
       <div class="thesis-block">
 
         <h2>Our Evergreen Thesis</h2>
@@ -405,66 +491,114 @@
 
 
   <!-- =========================
-       SCROLL EFFECT
+       FOOTER
+       ========================= -->
+
+  <footer class="footer" id="footer">
+
+    <div
+      class="footer-background"
+      id="footerBackground">
+    </div>
+
+    <div class="footer-overlay"></div>
+
+    <div class="footer-content">
+
+      <img
+        class="footer-logo"
+        src="Logo_White.png"
+        alt="Overlook Capital"
+      />
+
+      <!-- Replace the URL below with your investor portal -->
+      <a
+        class="portal-link"
+        href="YOUR-INVESTOR-PORTAL-URL"
+        target="_blank"
+        rel="noopener noreferrer">
+        Investor Portal
+      </a>
+
+      <div class="footer-bottom">
+        © 2026 Overlook Capital. All rights reserved.
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =========================
+       SCROLL EFFECTS
        ========================= -->
 
   <script>
 
     const hero = document.getElementById("hero");
-    const background = document.getElementById("heroBackground");
-    const logo = document.getElementById("logo");
-    const scrollCue = document.getElementById("scrollCue");
+    const heroBackground =
+      document.getElementById("heroBackground");
+
+    const logo =
+      document.getElementById("logo");
+
+    const scrollCue =
+      document.getElementById("scrollCue");
+
+    const footer =
+      document.getElementById("footer");
+
+    const footerBackground =
+      document.getElementById("footerBackground");
 
     const prefersReducedMotion =
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
 
 
-    function updateHero() {
+    function updateScrollEffects() {
 
       if (prefersReducedMotion) return;
 
-      const heroHeight = hero.offsetHeight;
 
-      /*
-        How far through the hero have we scrolled?
+      /* =====================
+         HERO ZOOM
+         ===================== */
 
-        0 = top of page
-        1 = entire hero has passed
-      */
+      const heroHeight =
+        hero.offsetHeight;
 
-      const progress = Math.min(
-        Math.max(window.scrollY / heroHeight, 0),
-        1
-      );
+      const heroProgress =
+        Math.min(
+          Math.max(
+            window.scrollY / heroHeight,
+            0
+          ),
+          1
+        );
 
+      const heroStartScale = 2.00;
+      const heroEndScale = 0.50;
 
-      /*
-        BACKGROUND ZOOM
+      const heroScale =
+        heroStartScale -
+        ((heroStartScale - heroEndScale) * heroProgress);
 
-        Starts at 1.20x
-        Ends at 1.00x
-      */
-
-      const startScale = 2.00;
-      const endScale = 1.00;
-
-      const scale =
-        startScale -
-        ((startScale - endScale) * progress);
-
-      background.style.transform =
-        `scale(${scale})`;
+      heroBackground.style.transform =
+        `scale(${heroScale})`;
 
 
-      /*
-        Give the logo a tiny amount of parallax
-        and fade as the user approaches the thesis.
-      */
+      /* Logo movement + fade */
 
-      const logoMove = progress * -35;
+      const logoMove =
+        heroProgress * -35;
 
       const logoOpacity =
-        Math.max(1 - (progress * 1.35), 0);
+        Math.max(
+          1 - (heroProgress * 1.35),
+          0
+        );
 
       logo.style.transform =
         `translateY(${logoMove}px)`;
@@ -473,22 +607,58 @@
         logoOpacity;
 
 
-      /*
-        Scroll cue disappears quickly once
-        scrolling begins.
-      */
+      /* Scroll cue fade */
 
       const cueOpacity =
-        Math.max(1 - (progress * 6), 0);
+        Math.max(
+          1 - (heroProgress * 6),
+          0
+        );
 
       scrollCue.style.opacity =
         cueOpacity;
+
+
+      /* =====================
+         FOOTER ZOOM
+         ===================== */
+
+      const footerRect =
+        footer.getBoundingClientRect();
+
+      const windowHeight =
+        window.innerHeight;
+
+      /*
+        0 = footer just entering screen
+        1 = footer fills the screen
+      */
+
+      const footerProgress =
+        Math.min(
+          Math.max(
+            (windowHeight - footerRect.top) /
+            windowHeight,
+            0
+          ),
+          1
+        );
+
+      /*
+        Starts at 1.20x when footer appears.
+        Ends at 1.00x at the bottom.
+      */
+
+      const footerScale =
+        1.20 - (0.20 * footerProgress);
+
+      footerBackground.style.transform =
+        `scale(${footerScale})`;
+
     }
 
 
-    /*
-      requestAnimationFrame keeps scrolling smooth.
-    */
+    /* Smooth scroll updates */
 
     let ticking = false;
 
@@ -501,15 +671,13 @@
           window.requestAnimationFrame(
             function () {
 
-              updateHero();
-
+              updateScrollEffects();
               ticking = false;
 
             }
           );
 
           ticking = true;
-
         }
 
       },
@@ -517,7 +685,7 @@
     );
 
 
-    updateHero();
+    updateScrollEffects();
 
   </script>
 
